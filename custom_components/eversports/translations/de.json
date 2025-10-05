@@ -1,0 +1,18 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit Eversports verbinden",
+        "description": "Gib die Details für die Anlage und die Sportart an, die du überwachen möchtest. Du findest diese Informationen in der URL und im Netzwerk-Traffic des Eversports-Widgets.",
+        "data": {
+          "facility_id": "Anlagen-ID (Facility ID)",
+          "sport": "Sportart (z.B. squash)",
+          "court_ids": "Court-IDs (kommagetrennt)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Diese Kombination aus Anlage und Sportart ist bereits konfiguriert."
+    }
+  }
+}

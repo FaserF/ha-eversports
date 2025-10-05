@@ -1,0 +1,18 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Eversports",
+        "description": "Enter the details for the facility and sport you want to monitor. You can find these in the URL and network traffic of the Eversports widget.",
+        "data": {
+          "facility_id": "Facility ID",
+          "sport": "Sport Name (e.g., squash)",
+          "court_ids": "Court IDs (comma-separated)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "This facility and sport combination is already configured."
+    }
+  }
+}
