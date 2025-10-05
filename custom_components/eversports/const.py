@@ -15,7 +15,7 @@ CONF_SPORT = "sport"
 CONF_COURT_IDS = "court_ids"
 
 # Update interval
-UPDATE_INTERVAL = timedelta(minutes=15)
+UPDATE_INTERVAL = timedelta(hours=3)
 
 # API
 BASE_URL = "https://www.eversports.de/widget/api/slot"

@@ -1,5 +1,7 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
 # eversports Homeassistant Sensor
+CURRENTLY WORK IN PROGRESS!
+
 This integration adds a sensor to Home Assistant to monitor the availability of sports courts from Eversports. It fetches data for a specific facility, sport, and a list of courts, and shows the next available time slot for the current day.
 
 ## Installation

@@ -1,6 +1,6 @@
 # custom_components/eversports/__init__.py
 """The Eversports integration."""
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 from homeassistant.config_entries import ConfigEntry
@@ -36,10 +36,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     async def _async_update_data():
         """Fetch data from API."""
         # Get current date in the correct format for the API
-        today_str = datetime.now().strftime("%Y-%m-%d")
+        now = datetime.now(pytz.timezone("Europe/Berlin"))
+        today_str = now.strftime("%Y-%m-%d")
 
         # Construct the full URL
         url = f"{BASE_URL}?facilityId={facility_id}&sport={sport}&startDate={today_str}&{court_params}"
+        LOGGER.debug(f"Requesting URL: {url}")
 
         # These headers are crucial to get a valid response
         headers = {
@@ -52,8 +54,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             async with session.get(url, headers=headers) as response:
                 response.raise_for_status()
                 data = await response.json()
-                LOGGER.debug(f"API response received: {data}")
-                return process_eversports_data(data)
+                LOGGER.debug(f"Full API response received: {data}")
+                processed_data = process_eversports_data(data, url, now)
+                LOGGER.debug(f"Processed data: {processed_data}")
+                return processed_data
         except Exception as err:
             raise UpdateFailed(f"Error communicating with API: {err}")
 
@@ -73,48 +77,73 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return True
 
 
-def process_eversports_data(data):
+def process_eversports_data(data, api_url: str, now: datetime):
     """Process the JSON data from the Eversports API."""
-    now = datetime.now(pytz.timezone("Europe/Berlin"))
+    today_str = now.strftime("%Y-%m-%d")
+    LOGGER.debug(f"Processing data at current time: {now.isoformat()}")
 
-    # Filter for slots that are not booked ("present": false) and are in the future
-    available_slots = [
+    raw_slots = data.get("slots", [])
+    LOGGER.debug(f"Found {len(raw_slots)} total slots in response.")
+
+    # 1. Find all available slots in the future
+    future_available_slots = [
         slot
-        for slot in data.get("slots", [])
+        for slot in raw_slots
         if not slot.get("present")
         and f"{slot['date']} {slot['start']}" >= now.strftime("%Y-%m-%d %H%M")
     ]
+    LOGGER.debug(f"Found {len(future_available_slots)} available slots in the future.")
 
-    # Sort available slots by time
-    available_slots.sort(key=lambda x: x["start"])
+    # Sort them chronologically
+    future_available_slots.sort(key=lambda x: (x["date"], x["start"]))
 
-    if not available_slots:
+    # 2. Find all available slots for TODAY for the attribute list
+    todays_available_slots = [
+        slot for slot in future_available_slots if slot["date"] == today_str
+    ]
+    todays_available_times = sorted(
+        [f"{s['start'][:2]}:{s['start'][2:]}" for s in todays_available_slots]
+    )
+
+    # 3. Determine state and attributes
+    if not future_available_slots:
         return {
             "next_available_slot": None,
-            "total_slots": len(data.get("slots", [])),
+            "next_slot_datetime": None,
+            "next_slot_court_id": None,
+            "total_slots": len(raw_slots),
             "available_slots_count": 0,
             "available_slots_list": [],
+            "last_update": now.isoformat(),
+            "api_url": api_url,
         }
 
-    next_slot = available_slots[0]
-
-    # Format time string from "1630" to "16:30"
+    next_slot = future_available_slots[0]
     start_time_str = f"{next_slot['start'][:2]}:{next_slot['start'][2:]}"
 
-    # Create datetime object for the next slot
-    next_slot_dt = datetime.strptime(
-        f"{next_slot['date']} {start_time_str}", "%Y-%m-%d %H:%M"
-    ).astimezone(pytz.timezone("Europe/Berlin"))
+    # Format display state
+    display_state = start_time_str
+    next_date_obj = datetime.strptime(next_slot["date"], "%Y-%m-%d").date()
+    today_date_obj = now.date()
+    if next_slot["date"] != today_str:
+        if (next_date_obj - today_date_obj).days == 1:
+            display_state = f"Morgen, {start_time_str}"
+        else:
+            display_state = f"{next_date_obj.strftime('%d.%m')}, {start_time_str}"
+
+    next_slot_dt = now.tzinfo.localize(
+        datetime.strptime(f"{next_slot['date']} {start_time_str}", "%Y-%m-%d %H:%M")
+    )
 
     return {
-        "next_available_slot": start_time_str,
+        "next_available_slot": display_state,
         "next_slot_datetime": next_slot_dt.isoformat(),
         "next_slot_court_id": next_slot.get("court"),
-        "total_slots": len(data.get("slots", [])),
-        "available_slots_count": len(available_slots),
-        "available_slots_list": [
-            f"{s['start'][:2]}:{s['start'][2:]}" for s in available_slots
-        ],
+        "total_slots": len(raw_slots),
+        "available_slots_count": len(future_available_slots),
+        "available_slots_list": todays_available_times,
+        "last_update": now.isoformat(),
+        "api_url": api_url,
     }
 
 
