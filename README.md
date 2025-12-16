@@ -1,33 +1,41 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
-# eversports Homeassistant Sensor
-CURRENTLY WORK IN PROGRESS!
 
-This integration adds a sensor to Home Assistant to monitor the availability of sports courts from Eversports. It fetches data for a specific facility, sport, and a list of courts, and shows the next available time slot for the current day.
+# Eversports Home Assistant Sensor 🎾
 
-## Installation
-### 1. Using HACS (recommended way)
+track court availability from **Eversports** directly in Home Assistant.
 
-This integration will be a official HACS Integration in the future.
+> [!WARNING]
+> **Work in Progress**
+> This integration is currently under active development.
 
-Open HACS then install the "eversports" integration or use the link below.
+## Features ✨
+
+- **Availability Monitoring**: Check free slots for specific sports and facilities.
+- **Detailed Attributes**: Get next slot time, available count, and more.
+
+## Installation 🛠️
+
+### 1. Using HACS (Recommended)
+
+This integration is planned to be an official HACS integration.
+
+1.  Open HACS.
+2.  Add Custom Repository: `https://github.com/FaserF/ha-eversports` (Category: Integration).
+3.  Click **Download**.
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=FaserF&repository=ha-eversports&category=integration)
 
-If you use this method, your component will always update to the latest version.
+### 2. Manual Installation
 
-### 2. Manual
+1.  Download the latest [Release](https://github.com/FaserF/ha-eversports/releases/latest).
+2.  Extract the ZIP file.
+3.  Copy the `eversports` folder to `<config>/custom_components/`.
 
-- Download the latest zip release from [here](https://github.com/FaserF/ha-eversports/releases/latest)
-- Extract the zip file
-- Copy the folder "eversports" from within custom_components with all of its components to `<config>/custom_components/`
+## Configuration ⚙️
 
-where `<config>` is your Home Assistant configuration directory.
-
->__NOTE__: Do not download the file by using the link above directly, the status in the "master" branch can be in development and therefore is maybe not working.
-
-## Configuration
-
-Go to Configuration -> Integrations and click on "add integration". Then search for "eversports".
+1.  Go to **Settings** -> **Devices & Services**.
+2.  Click **Add Integration**.
+3.  Search for "eversports".
 
 [![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=eversports)
 
