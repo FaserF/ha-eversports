@@ -11,8 +11,9 @@ from custom_components.eversports.const import DOMAIN
 from tests.const import MOCK_CONFIG
 
 
-async def test_calendar(hass: HomeAssistant) -> None:
+async def test_calendar(hass: HomeAssistant, freezer) -> None:
     """Test calendar events."""
+    freezer.move_to("2026-02-01T10:30:00Z")
     entry = MockConfigEntry(
         domain=DOMAIN,
         title="Eversports Squash",
@@ -39,6 +40,6 @@ async def test_calendar(hass: HomeAssistant) -> None:
         await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
 
-    state = hass.states.get("calendar.eversports_squash")
+    state = hass.states.get("calendar.eversports_facility_12345_eversports_squash")
     assert state
     assert state.state == "on"

@@ -58,14 +58,19 @@ class EversportsBinarySensor(
             return None
         return self.coordinator.data.get("available_slots_count", 0) > 0
 
-    @property
-    def extra_state_attributes(self):
-        """Return the state attributes."""
-        if not self.coordinator.data:
-            return {}
         return {
             "available_slots_count": self.coordinator.data.get(
                 "available_slots_count", 0
             ),
             "facility_id": self.entry.data[CONF_FACILITY_ID],
+        }
+
+    @property
+    def device_info(self):
+        """Return the device info."""
+        return {
+            "identifiers": {(DOMAIN, self.entry.data[CONF_FACILITY_ID])},
+            "name": f"Eversports Facility {self.entry.data[CONF_FACILITY_ID]}",
+            "manufacturer": "Eversports",
+            "configuration_url": f"https://www.eversports.de/s/{self.entry.data[CONF_FACILITY_ID]}",
         }

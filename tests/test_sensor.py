@@ -35,7 +35,7 @@ async def test_sensor(hass: HomeAssistant) -> None:
         await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
 
-    state = hass.states.get("sensor.eversports_squash_next_available")
+    state = hass.states.get("sensor.eversports_facility_12345_eversports_squash_next_available")
     assert state
     assert state.state == "18:00"
     assert state.attributes["next_slot_court_id"] == "52463"

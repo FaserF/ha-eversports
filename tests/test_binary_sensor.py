@@ -30,7 +30,7 @@ async def test_binary_sensor(hass: HomeAssistant) -> None:
         await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
 
-    state = hass.states.get("binary_sensor.eversports_squash_slots_available")
+    state = hass.states.get("binary_sensor.eversports_facility_12345_eversports_squash_slots_available")
     assert state
     assert state.state == STATE_ON
     assert state.attributes["available_slots_count"] == 5
@@ -47,6 +47,6 @@ async def test_binary_sensor(hass: HomeAssistant) -> None:
         await coordinator.async_refresh()
         await hass.async_block_till_done()
 
-    state = hass.states.get("binary_sensor.eversports_squash_slots_available")
+    state = hass.states.get("binary_sensor.eversports_facility_12345_eversports_squash_slots_available")
     assert state
     assert state.state == STATE_OFF

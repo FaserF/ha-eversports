@@ -65,13 +65,18 @@ class EversportsCalendar(
             for slot in self.coordinator.data["all_slots"]
         ]
 
-    async def async_get_events(
-        self, hass: HomeAssistant, start_date: datetime, end_date: datetime
-    ) -> list[CalendarEvent]:
-        """Return calendar events within a datetime range."""
-        events = self._get_events()
         return [
             event
             for event in events
             if event.start >= start_date and event.end <= end_date
         ]
+
+    @property
+    def device_info(self):
+        """Return the device info."""
+        return {
+            "identifiers": {(DOMAIN, self.entry.data[CONF_FACILITY_ID])},
+            "name": f"Eversports Facility {self.entry.data[CONF_FACILITY_ID]}",
+            "manufacturer": "Eversports",
+            "configuration_url": f"https://www.eversports.de/s/{self.entry.data[CONF_FACILITY_ID]}",
+        }
