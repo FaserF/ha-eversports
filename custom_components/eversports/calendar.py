@@ -17,7 +17,6 @@ if TYPE_CHECKING:
     from datetime import datetime
 
 
-
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
