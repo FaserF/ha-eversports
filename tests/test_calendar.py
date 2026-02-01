@@ -13,7 +13,8 @@ from tests.const import MOCK_CONFIG
 
 async def test_calendar(hass: HomeAssistant, freezer) -> None:
     """Test calendar events."""
-    freezer.move_to("2026-02-01T10:30:00Z")
+    # Set time to 10:15 Berlin time (09:15 UTC) - within the 10:00-11:00 Berlin event
+    freezer.move_to("2026-02-01T09:15:00Z")
     entry = MockConfigEntry(
         domain=DOMAIN,
         title="Eversports Squash",

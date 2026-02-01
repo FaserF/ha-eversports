@@ -58,6 +58,11 @@ class EversportsBinarySensor(
             return None
         return self.coordinator.data.get("available_slots_count", 0) > 0
 
+    @property
+    def extra_state_attributes(self):
+        """Return the state attributes."""
+        if not self.coordinator.data:
+            return {}
         return {
             "available_slots_count": self.coordinator.data.get(
                 "available_slots_count", 0
