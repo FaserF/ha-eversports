@@ -14,5 +14,11 @@
     "abort": {
       "already_configured": "Diese Kombination aus Anlage und Sportart ist bereits konfiguriert."
     }
+  },
+  "issues": {
+    "data_fetch_failed": {
+      "title": "Eversports Datenabruf fehlgeschlagen für {sport}",
+      "description": "Der Eversports Datenabruf für {sport} an der Anlage {facility_id} ist seit mehr als 24 Stunden fehlgeschlagen. Dies bedeutet wahrscheinlich, dass sich das Website-Layout oder die API geändert hat. Bitte prüfe ob ein Update verfügbar ist oder öffne ein GitHub Issue."
+    }
   }
 }

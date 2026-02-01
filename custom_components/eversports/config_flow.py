@@ -1,10 +1,11 @@
 # custom_components/eversports/config_flow.py
 """Config flow for Eversports integration."""
+
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.core import callback
 
 from .const import DOMAIN, CONF_FACILITY_ID, CONF_SPORT, CONF_COURT_IDS
+
 
 class EversportsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Eversports."""

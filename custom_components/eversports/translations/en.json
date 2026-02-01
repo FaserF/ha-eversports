@@ -14,5 +14,11 @@
     "abort": {
       "already_configured": "This facility and sport combination is already configured."
     }
+  },
+  "issues": {
+    "data_fetch_failed": {
+      "title": "Eversports data fetch failed for {sport}",
+      "description": "Eversports data fetch for {sport} at facility {facility_id} has failed for more than 24 hours. This likely means the website layout or API has changed. Please check if there is an update or open a GitHub issue if none exists."
+    }
   }
 }
