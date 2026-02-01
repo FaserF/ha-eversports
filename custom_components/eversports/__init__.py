@@ -195,8 +195,20 @@ class EversportsDataUpdateCoordinator(DataUpdateCoordinator):
         """Process all slots into a format suitable for the calendar."""
         processed_slots = []
         for slot in slots:
-            start_str = f"{slot['start'][:2]}:{slot['start'][2:]}"
-            end_str = f"{slot['end'][:2]}:{slot['end'][2:]}"
+            start_raw = slot.get("start")
+            end_raw = slot.get("end")
+
+            # Validate that we have valid 4-digit strings for slicing
+            if (
+                not isinstance(start_raw, str)
+                or len(start_raw) < 4
+                or not isinstance(end_raw, str)
+                or len(end_raw) < 4
+            ):
+                continue
+
+            start_str = f"{start_raw[:2]}:{start_raw[2:]}"
+            end_str = f"{end_raw[:2]}:{end_raw[2:]}"
 
             start_dt = dt_util.parse_datetime(f"{slot['date']} {start_str}")
             end_dt = dt_util.parse_datetime(f"{slot['date']} {end_str}")

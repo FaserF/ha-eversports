@@ -10,7 +10,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import EversportsDataUpdateCoordinator
-from .const import CONF_SPORT, DOMAIN
+from .const import CONF_FACILITY_ID, CONF_SPORT, DOMAIN
 
 
 async def async_setup_entry(
@@ -65,6 +65,11 @@ class EversportsCalendar(
             for slot in self.coordinator.data["all_slots"]
         ]
 
+    async def async_get_events(
+        self, hass: HomeAssistant, start_date: datetime, end_date: datetime
+    ) -> list[CalendarEvent]:
+        """Return calendar events within a datetime range."""
+        events = self._get_events()
         return [
             event
             for event in events
