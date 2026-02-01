@@ -1,7 +1,8 @@
 """Calendar platform for Eversports."""
 
 from __future__ import annotations
-from datetime import datetime
+
+from typing import TYPE_CHECKING
 
 from homeassistant.components.calendar import CalendarEntity, CalendarEvent
 from homeassistant.config_entries import ConfigEntry
@@ -11,6 +12,10 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import EversportsDataUpdateCoordinator
 from .const import CONF_FACILITY_ID, CONF_SPORT, DOMAIN
+
+if TYPE_CHECKING:
+    from datetime import datetime
+
 
 
 async def async_setup_entry(
