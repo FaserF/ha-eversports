@@ -2,9 +2,9 @@
 
 from unittest.mock import patch
 
-from homeassistant import config_entries
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.eversports.const import DOMAIN
 from tests.const import MOCK_CONFIG
@@ -12,16 +12,13 @@ from tests.const import MOCK_CONFIG
 
 async def test_setup_unload_entry(hass: HomeAssistant) -> None:
     """Test setup and unload of a config entry."""
-    entry = hass.config_entries.async_add_entry(
-        config_entries.ConfigEntry(
-            version=1,
-            domain=DOMAIN,
-            title="Eversports Squash",
-            data=MOCK_CONFIG,
-            source="user",
-            entry_id="test_entry",
-        )
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="Eversports Squash",
+        data=MOCK_CONFIG,
+        entry_id="test_entry",
     )
+    entry.add_to_hass(hass)
 
     with patch(
         "custom_components.eversports.EversportsDataUpdateCoordinator._async_update_data",

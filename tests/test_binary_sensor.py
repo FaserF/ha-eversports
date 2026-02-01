@@ -2,9 +2,9 @@
 
 from unittest.mock import patch
 
-from homeassistant import config_entries
 from homeassistant.const import STATE_ON, STATE_OFF
 from homeassistant.core import HomeAssistant
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.eversports.const import DOMAIN
 from tests.const import MOCK_CONFIG
@@ -12,16 +12,13 @@ from tests.const import MOCK_CONFIG
 
 async def test_binary_sensor(hass: HomeAssistant) -> None:
     """Test binary sensor state."""
-    entry = hass.config_entries.async_add_entry(
-        config_entries.ConfigEntry(
-            version=1,
-            domain=DOMAIN,
-            title="Eversports Squash",
-            data=MOCK_CONFIG,
-            source="user",
-            entry_id="test_entry",
-        )
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="Eversports Squash",
+        data=MOCK_CONFIG,
+        entry_id="test_entry",
     )
+    entry.add_to_hass(hass)
 
     # Test with available slots
     with patch(

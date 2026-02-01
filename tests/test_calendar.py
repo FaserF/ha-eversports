@@ -4,8 +4,8 @@ from datetime import datetime
 from unittest.mock import patch
 import pytz
 
-from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.eversports.const import DOMAIN
 from tests.const import MOCK_CONFIG
@@ -13,16 +13,13 @@ from tests.const import MOCK_CONFIG
 
 async def test_calendar(hass: HomeAssistant) -> None:
     """Test calendar events."""
-    entry = hass.config_entries.async_add_entry(
-        config_entries.ConfigEntry(
-            version=1,
-            domain=DOMAIN,
-            title="Eversports Squash",
-            data=MOCK_CONFIG,
-            source="user",
-            entry_id="test_entry",
-        )
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="Eversports Squash",
+        data=MOCK_CONFIG,
+        entry_id="test_entry",
     )
+    entry.add_to_hass(hass)
 
     tz = pytz.timezone("Europe/Berlin")
     start_time = tz.localize(datetime(2026, 2, 1, 10, 0, 0))
