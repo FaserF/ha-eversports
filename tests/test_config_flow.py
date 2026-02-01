@@ -6,7 +6,7 @@ from homeassistant import config_entries, data_entry_flow
 from homeassistant.core import HomeAssistant
 
 from custom_components.eversports.const import DOMAIN
-from .const import MOCK_CONFIG
+from tests.const import MOCK_CONFIG
 
 
 async def test_user_form(hass: HomeAssistant) -> None:

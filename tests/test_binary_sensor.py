@@ -7,7 +7,7 @@ from homeassistant.const import STATE_ON, STATE_OFF
 from homeassistant.core import HomeAssistant
 
 from custom_components.eversports.const import DOMAIN
-from .const import MOCK_CONFIG
+from tests.const import MOCK_CONFIG
 
 
 async def test_binary_sensor(hass: HomeAssistant) -> None:
