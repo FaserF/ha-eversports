@@ -7,14 +7,14 @@ from homeassistant import config_entries
 from .const import DOMAIN, CONF_FACILITY_ID, CONF_SPORT, CONF_COURT_IDS
 
 
-class EversportsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class EversportsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
     """Handle a config flow for Eversports."""
 
     VERSION = 1
 
     async def async_step_user(self, user_input=None):
         """Handle the initial step."""
-        errors = {}
+        errors: dict[str, str] = {}
 
         if user_input is not None:
             # Create a unique ID to prevent duplicate entries
