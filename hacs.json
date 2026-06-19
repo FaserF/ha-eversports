@@ -1,5 +1,9 @@
 {
-    "name": "eversports",
-    "render_readme": true,
-    "country": ["DE"]
+  "name": "eversports",
+  "render_readme": true,
+  "country": [
+    "DE"
+  ],
+  "zip_release": true,
+  "filename": "eversports.zip"
 }
