@@ -87,7 +87,9 @@ class EversportsDataUpdateCoordinator(DataUpdateCoordinator):
         }
 
         try:
-            async with session.get(url, headers=headers, timeout=ClientTimeout(total=10)) as response:
+            async with session.get(
+                url, headers=headers, timeout=ClientTimeout(total=10)
+            ) as response:
                 response.raise_for_status()
                 data = await response.json()
                 LOGGER.debug("Full API response received: %s", data)
