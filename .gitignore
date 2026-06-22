@@ -4,3 +4,10 @@ github_conf/
 /tests/__pycache__
 /custom_components/__pycache__
 /custom_components/eversports/__pycache__
+
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+.venv/
+*.pyc
