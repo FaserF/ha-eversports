@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta
+from aiohttp import ClientTimeout
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -86,7 +87,7 @@ class EversportsDataUpdateCoordinator(DataUpdateCoordinator):
         }
 
         try:
-            async with session.get(url, headers=headers, timeout=10) as response:
+            async with session.get(url, headers=headers, timeout=ClientTimeout(total=10)) as response:
                 response.raise_for_status()
                 data = await response.json()
                 LOGGER.debug("Full API response received: %s", data)
