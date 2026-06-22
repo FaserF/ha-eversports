@@ -214,7 +214,8 @@ jobs:
 
       - name: 📦 Zip Component
         run: |
-          zip -r eversports.zip custom_components/eversports
+          cd custom_components/eversports
+          zip -r ../../eversports.zip .
 
       - name: Download Release Body Artifact
         uses: actions/download-artifact@v8
