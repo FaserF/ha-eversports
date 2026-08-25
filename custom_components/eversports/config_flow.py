@@ -4,7 +4,7 @@
 import voluptuous as vol
 from homeassistant import config_entries
 
-from .const import DOMAIN, CONF_FACILITY_ID, CONF_SPORT, CONF_COURT_IDS
+from .const import CONF_COURT_IDS, CONF_FACILITY_ID, CONF_SPORT, DOMAIN
 
 
 class EversportsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore

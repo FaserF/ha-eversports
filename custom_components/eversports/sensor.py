@@ -9,8 +9,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import CONF_COURT_IDS, CONF_FACILITY_ID, CONF_SPORT, DOMAIN
 from . import EversportsDataUpdateCoordinator
+from .const import CONF_COURT_IDS, CONF_FACILITY_ID, CONF_SPORT, DOMAIN
 
 
 async def async_setup_entry(

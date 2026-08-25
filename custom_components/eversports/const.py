@@ -1,8 +1,8 @@
 # custom_components/eversports/const.py
 """Constants for the Eversports integration."""
 
-from datetime import timedelta
 import logging
+from datetime import timedelta
 
 DOMAIN = "eversports"
 LOGGER = logging.getLogger(__package__)

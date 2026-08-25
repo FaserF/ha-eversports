@@ -4,15 +4,15 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta
-from aiohttp import ClientTimeout
 
+import homeassistant.util.dt as dt_util
+from aiohttp import ClientTimeout
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-import homeassistant.util.dt as dt_util
 
 from .const import (
     BASE_URL,

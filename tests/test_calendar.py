@@ -2,8 +2,8 @@
 
 from datetime import datetime
 from unittest.mock import patch
-import pytz
 
+import pytz
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
