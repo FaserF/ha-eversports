@@ -22,6 +22,16 @@ Track court availability from **Eversports** directly in Home Assistant.
 </div>
 
 ---
+
+## 🔌 Recommended Hardware & Ecosystem Links
+
+| Device / Service | Integration Use Case | Link |
+| :--- | :--- | :--- |
+| **Trade Republic (Zinsen & kostenlose ETF-Sparpläne)** | Kompatibel mit Home Assistant Depot- & Cashflow-Sensoren | [Offizielle Geräte-Seite →](https://fabiseitz.de/go/tr) |
+| **Finanzfluss Copilot Dashboard** | Automatische Konto-, Depot- & Freistellungsauftrag-Synchronisation | [Offizielle Geräte-Seite →](https://fabiseitz.de/go/finanzfluss) |
+
+
+---
 ## Features ✨
 
 - **Availability Monitoring**: Check free slots for specific sports and facilities.
