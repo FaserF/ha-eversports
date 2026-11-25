@@ -1,7 +1,10 @@
 # custom_components/eversports/config_flow.py
 """Config flow for Eversports integration."""
 
-import voluptuous as vol
+try:
+    import probatio as vol
+except ImportError:
+    import voluptuous as vol  # type: ignore[no-redef]
 from homeassistant import config_entries
 
 from .const import CONF_COURT_IDS, CONF_FACILITY_ID, CONF_SPORT, DOMAIN

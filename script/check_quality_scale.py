@@ -130,7 +130,7 @@ def main() -> int:
 
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    except Exception as err:
+    except (OSError, json.JSONDecodeError) as err:
         print(f"Error reading manifest: {err}", file=sys.stderr)
         return 1
 
@@ -234,8 +234,7 @@ def main() -> int:
         return 1
 
     print(
-        f"{qs_path.name} meets Home Assistant Quality Scale PLATINUM: "
-        f"{done_count} rules done, {exempt_count} exempt."
+        f"{qs_path.name} meets Home Assistant Quality Scale PLATINUM: {done_count} rules done, {exempt_count} exempt."
     )
     return 0
 
