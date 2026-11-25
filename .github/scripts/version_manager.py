@@ -1,10 +1,11 @@
-﻿import argparse
+import argparse
 import datetime
 import glob
 import json
 import os
 import re
 import subprocess
+import sys
 
 
 def find_manifest():
@@ -44,8 +45,8 @@ def get_current_version(manifest_path=None):
                 )
         if v_tags:
             return max(v_tags, key=lambda x: x["key"])["tag"]
-    except Exception:
-        pass
+    except (subprocess.SubprocessError, OSError, ValueError) as err:
+        print(f"Warning: failed to read git tags: {err}", file=sys.stderr)
     if manifest_path and os.path.exists(manifest_path):
         with open(manifest_path, "r", encoding="utf-8") as f:
             return json.load(f).get("version", "1.0.0")

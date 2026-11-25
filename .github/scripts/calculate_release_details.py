@@ -244,13 +244,7 @@ def main():
         else "No codebase changes detected."
     )
 
-    prerelease_note = (
-        f"\n> [!{alert_type}]\n"
-        f"> **Release Risk: {severity}**\n"
-        f"> {preamble}\n"
-        f">\n"
-        f"> **Affected areas:** {impact_str}\n"
-    )
+    prerelease_note = f"\n> [!{alert_type}]\n> **Release Risk: {severity}**\n> {preamble}\n>\n> **Affected areas:** {impact_str}\n"
 
     released_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M") + " UTC"
     body_parts = [
